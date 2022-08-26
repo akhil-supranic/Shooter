@@ -172,9 +172,9 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
+  m_XDamping: 0
+  m_YDamping: 0
+  m_ZDamping: 0
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
@@ -443,7 +443,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877104135}
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -9.185586, y: 8.950001, z: -8.9555855}
+  m_LocalPosition: {x: -9.185587, y: 8.950002, z: -9.185586}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -463,9 +463,10 @@ GameObject:
   - component: {fileID: 998712720}
   - component: {fileID: 998712724}
   - component: {fileID: 998712725}
+  - component: {fileID: 998712726}
   m_Layer: 0
-  m_Name: Capsule
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -541,7 +542,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 998712719}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.45, z: 0.23}
+  m_LocalPosition: {x: 0, y: 1.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1895072758}
@@ -556,8 +557,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 998712719}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 1.4
+  m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -576,9 +577,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de97ae2a7c51c384ea761c3f0713962c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 998712724}
   moveSpeed: 10
+  groundDrag: 10
   turnSpeed: 1080
+  jumpForce: 10
+  jumpCooldown: 0.25
+  airMultiplier: 0.5
+  input: {x: 0, y: 0, z: 0}
+  playerHeight: 2
+  isGrounded: 0
+  Ground:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &998712726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998712719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14caed6d6a10f540b2e9e9fa2bca3ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashAttepts: 0
+  isDashing: 0
+  dashSpeed: 2
 --- !u!1 &1266414938
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,7 +616,7 @@ GameObject:
   - component: {fileID: 1266414941}
   - component: {fileID: 1266414940}
   - component: {fileID: 1266414939}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -829,7 +854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110807128}
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -9.185586, y: 8.950001, z: -8.9555855}
+  m_LocalPosition: {x: -9.185587, y: 8.950002, z: -9.185586}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 371482065}
