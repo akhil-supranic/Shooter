@@ -7,8 +7,10 @@ public class Dashing : MonoBehaviour
     [Header("Dash Variables")]
     private float dashStartTime;
     [SerializeField] private int dashAttepts = 0;
-    [SerializeField] private bool isDashing;
+     [SerializeField] private int dashLimit = 10;
+    [SerializeField] public bool isDashing;
     [SerializeField] private float dashSpeed = 2f;
+
     PlayerController playerController;
     Rigidbody rb;
     void Start()
@@ -26,6 +28,7 @@ public class Dashing : MonoBehaviour
         dashStartTime = Time.time;
         isDashing = true;
         dashAttepts += 1;
+        
     }
 
     void OnDashEnd()
@@ -36,7 +39,7 @@ public class Dashing : MonoBehaviour
 
     void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !isDashing && dashAttepts <= 3)
+        if (Input.GetKeyDown(KeyCode.E) && !isDashing && dashAttepts <= dashLimit)
         {
             OnDashStart();
         }
@@ -47,9 +50,8 @@ public class Dashing : MonoBehaviour
                 rb.AddForce(transform.forward * dashSpeed, ForceMode.Impulse);
             }
             else
-            {
+            {   
                 rb.AddForce(transform.forward * playerController.input.normalized.magnitude * dashSpeed, ForceMode.Impulse);
-
 
             }
         }

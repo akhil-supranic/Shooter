@@ -13,17 +13,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 10.0f;
     [SerializeField] private float jumpCooldown = 0.25f;
     [SerializeField] private float airMultiplier = 0.4f;
+    [SerializeField] private float dragDashing=5.0f;
     bool readyToJump;
     public Vector3 input;
 
     [Header("Ground Check")]
     [SerializeField] private float playerHeight;
-    [SerializeField] private bool isGrounded;
+    [SerializeField] public bool isGrounded;
     [SerializeField] private LayerMask Ground;
+    Dashing dashScript;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        dashScript=GetComponent<Dashing>();
         readyToJump = true;
     }
 
@@ -94,8 +97,11 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrounded)
             rb.drag = groundDrag;
+        else if(isGrounded && dashScript.isDashing)
+            rb.drag = dragDashing;
         else
             rb.drag = 0;
+            
     }
 
 }

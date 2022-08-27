@@ -583,6 +583,7 @@ MonoBehaviour:
   jumpForce: 10
   jumpCooldown: 0.25
   airMultiplier: 0.5
+  dragDashing: 5
   input: {x: 0, y: 0, z: 0}
   playerHeight: 2
   isGrounded: 0
@@ -603,7 +604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashAttepts: 0
   isDashing: 0
-  dashSpeed: 2
+  dashSpeed: 10
 --- !u!1 &1266414938
 GameObject:
   m_ObjectHideFlags: 0
