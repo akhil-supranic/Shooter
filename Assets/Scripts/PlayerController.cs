@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 
 {
+
     [Header("Movement")]
     private Rigidbody rb;
     [SerializeField] private float moveSpeed = 10.0f;
@@ -13,20 +14,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 10.0f;
     [SerializeField] private float jumpCooldown = 0.25f;
     [SerializeField] private float airMultiplier = 0.4f;
-    [SerializeField] private float dragDashing=5.0f;
+    [SerializeField] private float dragDashing = 5.0f;
     bool readyToJump;
     public Vector3 input;
+    public Vector3 mouseInput;
+     public Camera Camera;
 
     [Header("Ground Check")]
     [SerializeField] private float playerHeight;
+    [SerializeField] private float rayCastExtension = 0.01f;
     [SerializeField] public bool isGrounded;
     [SerializeField] private LayerMask Ground;
-    Dashing dashScript;
+    public Dashing dashScript;
+    public Shoot shoot;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        dashScript=GetComponent<Dashing>();
+        dashScript = GetComponent<Dashing>();
         readyToJump = true;
     }
 
@@ -47,10 +52,19 @@ public class PlayerController : MonoBehaviour
     void GetInput()
     {
         input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        mouseInput= Input.mousePosition;
 
         if (Input.GetKey(KeyCode.Space) && readyToJump && isGrounded)
         {
             Jumping();
+        }
+        else if (Input.GetButtonDown("Fire1"))
+        {
+            shoot.Shooting();
+        }
+        else if(Input.GetButton("Fire1"))
+        {
+            shoot.Autoshoot();
         }
     }
 
@@ -83,7 +97,7 @@ public class PlayerController : MonoBehaviour
     }
     private void GroundCheck()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.35f, Ground);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + rayCastExtension, Ground);
     }
     private void Jumping()
     {
@@ -97,11 +111,12 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrounded)
             rb.drag = groundDrag;
-        else if(isGrounded && dashScript.isDashing)
+        else if (!isGrounded && dashScript.isDashing)
             rb.drag = dragDashing;
-        else
-            rb.drag = 0;
-            
-    }
+        else if (!isGrounded && !dashScript.isDashing)
+            rb.drag=1.0f;
+        
 
-}
+    }
+   
+    }
