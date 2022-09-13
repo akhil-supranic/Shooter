@@ -5,6 +5,7 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
     public Transform spawnPoint;
+    [SerializeField] private LayerMask collisionMask;
     [SerializeField] public float shotDistance;
     [SerializeField] private enum GunType { Pistol, Auto, Shotgun };
     [SerializeField] private float rpm=600f;
@@ -15,6 +16,7 @@ public class Shoot : MonoBehaviour
     [SerializeField] private float bulletSpeed = 100f;
     [SerializeField] private float cameraShakeIntensity = 2f;
     [SerializeField] private float CameraShakeTimer = 0.1f;
+    [SerializeField] private float damage=1f;
 
     void Start()
     {
@@ -27,10 +29,14 @@ public class Shoot : MonoBehaviour
             Ray ray = new Ray(spawnPoint.position, spawnPoint.forward);
             RaycastHit hit;
             shotDistance = 20f;
-            if (Physics.Raycast(ray, out hit, shotDistance))
+            if (Physics.Raycast(ray, out hit, shotDistance,collisionMask))
             {
                 shotDistance = hit.distance;
                 Debug.Log(hit.transform.name);
+                if(hit.collider.GetComponent<HealthandDamage>())
+                {
+                    hit.collider.GetComponent<HealthandDamage>().TakeDamage(damage);
+                }
 
                 TrailRenderer trail1 = Instantiate(bulletTrail, spawnPoint.position, Quaternion.identity);
 

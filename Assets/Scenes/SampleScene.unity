@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 336054720}
   - component: {fileID: 336054721}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BulletTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -620,7 +620,8 @@ GameObject:
   - component: {fileID: 998712724}
   - component: {fileID: 998712725}
   - component: {fileID: 998712726}
-  m_Layer: 0
+  - component: {fileID: 998712727}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -768,6 +769,20 @@ MonoBehaviour:
   dashLimit: 100
   isDashing: 0
   dashForce: 200
+--- !u!114 &998712727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998712719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0830564f1390f4e448d66a124109890f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  damage: 0
 --- !u!1 &1266414938
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,7 +891,7 @@ GameObject:
   - component: {fileID: 1279391485}
   - component: {fileID: 1279391487}
   - component: {fileID: 1279391484}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -912,6 +927,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1568120435}
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 8
   shotDistance: 0
   rpm: 600
   secondsBetweenShots: 0
@@ -921,6 +939,7 @@ MonoBehaviour:
   bulletSpeed: 100
   cameraShakeIntensity: 2
   CameraShakeTimer: 0.1
+  damage: 1
 --- !u!23 &1279391485
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -980,9 +999,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 231e2c526530cdd4e9b11e17f2209b5e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1078,7 +1097,8 @@ GameObject:
   - component: {fileID: 1308764811}
   - component: {fileID: 1308764810}
   - component: {fileID: 1308764809}
-  m_Layer: 0
+  - component: {fileID: 1308764813}
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1161,6 +1181,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1308764813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308764808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1da1287d81121f4fb998163178cf5cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  damage: 0
 --- !u!1 &1568120434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1170,7 +1204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1568120435}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1203,7 +1237,7 @@ GameObject:
   - component: {fileID: 1895072761}
   - component: {fileID: 1895072760}
   - component: {fileID: 1895072759}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1298,7 +1332,8 @@ GameObject:
   - component: {fileID: 2066379775}
   - component: {fileID: 2066379774}
   - component: {fileID: 2066379773}
-  m_Layer: 0
+  - component: {fileID: 2066379777}
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1381,6 +1416,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2066379777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066379772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1da1287d81121f4fb998163178cf5cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  damage: 0
 --- !u!1 &2110807128
 GameObject:
   m_ObjectHideFlags: 0
