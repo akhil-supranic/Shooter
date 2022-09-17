@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask Ground;
     public Dashing dashScript;
     public Shoot shoot;
+    public Vector3 dirVector;
 
     void Start()
     {
@@ -38,8 +39,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         GetInput();
-        Look();
+        //Look();
         DragHandler();
+        RotateUsingMouse();
+        dirVector=MovementwithStrafing(input);
 
     }
 
@@ -47,6 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         GroundCheck();
+        
     }
 
     void GetInput()
@@ -82,13 +86,13 @@ public class PlayerController : MonoBehaviour
             rb.MovePosition(transform.position + transform.forward * input.normalized.magnitude * moveSpeed * airMultiplier * Time.deltaTime);
     }
 
-    private void Look()
-    {
-        if (input == Vector3.zero) return;
+    // private void Look()
+    // {
+    //     if (input == Vector3.zero) return;
 
-        var rot = Quaternion.LookRotation(input.ToIso(), Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);
-    }
+    //     var rot = Quaternion.LookRotation(input.ToIso(), Vector3.up);
+    //     transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);
+    // }
 
     private void Jump()
     {
@@ -121,8 +125,29 @@ public class PlayerController : MonoBehaviour
             rb.drag = dragDashing;
         else if (!isGrounded && !dashScript.isDashing)
             rb.drag=1.0f;
-        
-
     }
+
+      private void RotateUsingMouse()
+    {
+        Ray ray = Camera.ScreenPointToRay(mouseInput);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 100f))
+        {
+            var target = hitInfo.point;
+            target.y = transform.position.y;
+            transform.LookAt(target);
+        }
+
    
     }
+        private Vector3 MovementwithStrafing(Vector3 dirVector)
+    {
+        var speed = moveSpeed * Time.deltaTime;
+       
+
+        dirVector = Quaternion.Euler(0, Camera.gameObject.transform.rotation.eulerAngles.y,0 ) * dirVector;
+        var targetPosition = transform.position + dirVector * speed;
+        transform.position = targetPosition;
+        return dirVector;
+}
+}

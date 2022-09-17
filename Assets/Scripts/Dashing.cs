@@ -45,7 +45,7 @@ public class Dashing : MonoBehaviour
         }
         if (isDashing && (Time.time - dashStartTime <= 0.01f))
         
-        {       rb.AddForce(transform.forward * dashForce, ForceMode.Impulse);
+        {       rb.AddForce(playerController.dirVector * dashForce, ForceMode.Impulse);
         }
         else
         {
