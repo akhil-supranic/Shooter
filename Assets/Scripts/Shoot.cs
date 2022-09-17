@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
     public Transform spawnPoint;
-    [SerializeField] private LayerMask collisionMask;
+    [SerializeField] private LayerMask collisionMask,isPlayer;
     [SerializeField] public float shotDistance;
     [SerializeField] private enum GunType { Pistol, Auto, Shotgun };
     [SerializeField] private float rpm = 600f;
@@ -31,7 +31,7 @@ public class Shoot : MonoBehaviour
             Ray ray = new Ray(spawnPoint.position, spawnPoint.forward);
             RaycastHit hit;
             shotDistance = 20f;
-            if (Physics.Raycast(ray, out hit, shotDistance, collisionMask))
+            if (Physics.Raycast(ray, out hit, shotDistance, collisionMask) || Physics.Raycast(ray, out hit, shotDistance, isPlayer) )
             {
                 shotDistance = hit.distance;
                 Debug.Log(hit.transform.name);

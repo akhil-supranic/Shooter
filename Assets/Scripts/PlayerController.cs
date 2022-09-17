@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private float moveSpeed = 10.0f;
     [SerializeField] private float groundDrag = 10.0f;
-    [SerializeField] private float turnSpeed = 1080;
+    //[SerializeField] private float turnSpeed = 1080;
     [SerializeField] private float jumpForce = 10.0f;
     [SerializeField] private float jumpCooldown = 0.25f;
     [SerializeField] private float airMultiplier = 0.4f;

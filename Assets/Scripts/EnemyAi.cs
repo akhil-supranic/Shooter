@@ -4,18 +4,24 @@ using UnityEngine.AI;
 
 public class EnemyAi : MonoBehaviour
 {
-    public NavMeshAgent agent;
-
-    public Transform player;
-    public LayerMask isGround, isPlayer;
+    [SerializeField]private NavMeshAgent agent;
+    [SerializeField]private Transform player;
+    [SerializeField]private LayerMask isGround, isPlayer;
     //Patroling
-    public Vector3 walkPoint;
+    [SerializeField]private Vector3 walkPoint;
     bool walkPointSet;
-    public float walkPointRange;
+    [SerializeField]private float walkPointRange;
+
+    //Attacking
+     [SerializeField]private float timeBetweenAttacks;
+    [SerializeField]private bool alreadyAttacked;
     
     //States
-    public float sightRange;
-    public bool playerInSightRange;
+    [SerializeField]private float sightRange;
+    [SerializeField]private float attackRange;
+    [SerializeField]private bool playerInSightRange;
+    [SerializeField]private bool playerInAttackRange;
+    [SerializeField]private Shoot shoot;
 
     private void Awake()
     {
@@ -27,14 +33,19 @@ public class EnemyAi : MonoBehaviour
     {
         //Check for sight
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, isPlayer);
+         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, isPlayer);
 
-        if (!playerInSightRange)
+        if (!playerInSightRange && !playerInAttackRange)
         {
             Patroling();
         }
-        else
+        else if(playerInSightRange && !playerInAttackRange)
         {
             ChasePlayer();
+        }
+        else if(playerInAttackRange && playerInAttackRange)
+        {
+            AttackPlayer();
         }
        
     }
@@ -66,6 +77,25 @@ public class EnemyAi : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+    }
+
+    private void AttackPlayer()
+    {
+        agent.SetDestination(transform.position);
+
+        transform.LookAt(player);
+        if (!alreadyAttacked)
+        {
+            shoot.Shooting();
+             alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        }
+
+    }
+
+     private void ResetAttack()
+    {
+        alreadyAttacked = false;
     }
 
     private void OnDrawGizmosSelected()
