@@ -17,6 +17,7 @@ public class Shoot : MonoBehaviour
     [SerializeField] private float cameraShakeIntensity = 2f;
     [SerializeField] private float CameraShakeTimer = 0.1f;
     [SerializeField] private float damage = 1f;
+    [SerializeField] private ParticleSystem muzzleFlash;
 
     void Start()
     {
@@ -52,6 +53,7 @@ public class Shoot : MonoBehaviour
             nextShootTime = Time.time + secondsBetweenShots;
             AudioSource audioSource = GetComponent<AudioSource>();
             audioSource.Play();
+            muzzleFlash.Play();
             CameraShake.Instance.ShakeCamera(cameraShakeIntensity, CameraShakeTimer);
         }
     }
