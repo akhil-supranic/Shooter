@@ -59,7 +59,7 @@ public class EnemyAi : MonoBehaviour
 
         walkPoint = new Vector3(transform.position.x+ randomX, transform.position.y, transform.position.z);
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, isGround))
+        if (Physics.Raycast(walkPoint, -transform.up, 1f, isGround))
             walkPointSet = true;
     }
 
@@ -71,7 +71,7 @@ public class EnemyAi : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position,walkPointRange);
+        Gizmos.DrawWireSphere(transform.position,walkPointRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }

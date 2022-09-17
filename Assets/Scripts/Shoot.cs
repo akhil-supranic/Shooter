@@ -18,6 +18,7 @@ public class Shoot : MonoBehaviour
     [SerializeField] private float CameraShakeTimer = 0.1f;
     [SerializeField] private float damage = 1f;
     [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private ParticleSystem bulletParticleSystem;
 
     void Start()
     {
@@ -39,16 +40,15 @@ public class Shoot : MonoBehaviour
                     hit.collider.GetComponent<HealthandDamage>().TakeDamage(damage);
                 }
 
-                TrailRenderer trail1 = Instantiate(bulletTrail, spawnPoint.position, Quaternion.identity);
-
-                StartCoroutine(SpawnTrail(trail1, hit.point));
+                
             }
-            else
-            {
-                TrailRenderer trail = Instantiate(bulletTrail, spawnPoint.position, Quaternion.identity);
+            // else
+            // {
+            //     TrailRenderer trail = Instantiate(bulletTrail, spawnPoint.position, Quaternion.identity);
 
-                StartCoroutine(SpawnTrail(trail, transform.forward * 100));
-            }
+            //     StartCoroutine(SpawnTrail(trail, transform.forward * shotDistance));
+            // }
+            bulletParticleSystem.Play();
             Debug.DrawRay(ray.origin, ray.direction * shotDistance, Color.red, 1);
             nextShootTime = Time.time + secondsBetweenShots;
             AudioSource audioSource = GetComponent<AudioSource>();
