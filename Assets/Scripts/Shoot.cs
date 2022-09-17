@@ -8,7 +8,7 @@ public class Shoot : MonoBehaviour
     [SerializeField] private LayerMask collisionMask;
     [SerializeField] public float shotDistance;
     [SerializeField] private enum GunType { Pistol, Auto, Shotgun };
-    [SerializeField] private float rpm=600f;
+    [SerializeField] private float rpm = 600f;
     [SerializeField] private float secondsBetweenShots;
     [SerializeField] private float nextShootTime;
     [SerializeField] private GunType gunType;
@@ -16,7 +16,7 @@ public class Shoot : MonoBehaviour
     [SerializeField] private float bulletSpeed = 100f;
     [SerializeField] private float cameraShakeIntensity = 2f;
     [SerializeField] private float CameraShakeTimer = 0.1f;
-    [SerializeField] private float damage=1f;
+    [SerializeField] private float damage = 1f;
 
     void Start()
     {
@@ -29,11 +29,11 @@ public class Shoot : MonoBehaviour
             Ray ray = new Ray(spawnPoint.position, spawnPoint.forward);
             RaycastHit hit;
             shotDistance = 20f;
-            if (Physics.Raycast(ray, out hit, shotDistance,collisionMask))
+            if (Physics.Raycast(ray, out hit, shotDistance, collisionMask))
             {
                 shotDistance = hit.distance;
                 Debug.Log(hit.transform.name);
-                if(hit.collider.GetComponent<HealthandDamage>())
+                if (hit.collider.GetComponent<HealthandDamage>())
                 {
                     hit.collider.GetComponent<HealthandDamage>().TakeDamage(damage);
                 }
@@ -42,15 +42,17 @@ public class Shoot : MonoBehaviour
 
                 StartCoroutine(SpawnTrail(trail1, hit.point));
             }
+            else
+            {
+                TrailRenderer trail = Instantiate(bulletTrail, spawnPoint.position, Quaternion.identity);
+
+                StartCoroutine(SpawnTrail(trail, transform.forward * 100));
+            }
             Debug.DrawRay(ray.origin, ray.direction * shotDistance, Color.red, 1);
             nextShootTime = Time.time + secondsBetweenShots;
             AudioSource audioSource = GetComponent<AudioSource>();
-            TrailRenderer trail = Instantiate(bulletTrail, spawnPoint.position, Quaternion.identity);
-
-            StartCoroutine(SpawnTrail(trail, transform.forward * 100));
-
             audioSource.Play();
-            CameraShake.Instance.ShakeCamera(cameraShakeIntensity,CameraShakeTimer);
+            CameraShake.Instance.ShakeCamera(cameraShakeIntensity, CameraShakeTimer);
         }
     }
     bool CanShoot()
@@ -82,7 +84,8 @@ public class Shoot : MonoBehaviour
             remainingDistance -= bulletSpeed * Time.deltaTime;
 
             yield return null;
-            Destroy(Trail.gameObject,Trail.time);
+
         }
+        Destroy(Trail.gameObject, Trail.time);
     }
 }

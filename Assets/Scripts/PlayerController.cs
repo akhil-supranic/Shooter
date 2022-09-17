@@ -61,10 +61,16 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetButtonDown("Fire1"))
         {
             shoot.Shooting();
+            //shoot.bulletTrail.enabled=true;
         }
         else if(Input.GetButton("Fire1"))
         {
             shoot.Autoshoot();
+            //shoot.bulletTrail.enabled=true;
+        }
+        else
+        {
+            //shoot.bulletTrail.enabled=false;
         }
     }
 

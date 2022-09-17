@@ -7,9 +7,9 @@ public class Dashing : MonoBehaviour
     [Header("Dash Variables")]
     private float dashStartTime;
     [SerializeField] private int dashAttepts = 0;
-    [SerializeField] private int dashLimit = 10;
+    [SerializeField] private int dashLimit = 100;
     [SerializeField] public bool isDashing;
-    [SerializeField] private float dashForce = 2f;
+    [SerializeField] private float dashForce = 200f;
 
     PlayerController playerController;
     Rigidbody rb;

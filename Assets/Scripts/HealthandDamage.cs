@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class HealthandDamage : MonoBehaviour
 {
-    public static HealthandDamage Instance { get; set; }
     public float health;
     public float damage;
 
-    public void Awake()
-    {
-        Instance=this;
-    }
     public virtual void TakeDamage(float damage)
     {
         health-=damage;
